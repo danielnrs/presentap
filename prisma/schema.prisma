@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Students {
+  id          Int          @id @default(autoincrement())
+  name        String       @db.VarChar(100)
+  nis         String       @unique(map: "nis") @db.VarChar(50)
+  class       String       @db.VarChar(50)
+  createdAt   DateTime     @default(now()) @db.DateTime(0)
+  rfid        String       @unique(map: "rfid") @db.VarChar(50)
+  attendances Attendance[]
+
+  @@map("students")
+}
+
+model Attendance {
+  id           Int       @id @default(autoincrement())
+  studentId    Int
+  checkInTime  DateTime  @db.DateTime(0)
+  checkOutTime DateTime? @db.DateTime(0)
+  createdAt    DateTime  @default(now()) @db.DateTime(0)
+  info         String?   @db.VarChar(255)
+  student      Students  @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  @@index([studentId], map: "attendance_studentId_fkey")
+  @@map("attendance")
+}
+
+model admin {
+  id         Int      @id @default(autoincrement())
+  username   String   @unique(map: "username") @db.VarChar(100)
+  password   String   @db.VarChar(255)
+  created_at DateTime @default(now()) @db.Timestamp(0)
+}
