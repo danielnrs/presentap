@@ -17,15 +17,14 @@
               class="rfid-input"
             />
           </div>
+          <div class="form-group">
+            <label for="name">Nama</label>
+            <input id="name" v-model="formData.name" type="text" required />
+          </div>
 
           <div class="form-group">
             <label for="nis">NIS</label>
             <input id="nis" v-model="formData.nis" type="text" required />
-          </div>
-
-          <div class="form-group">
-            <label for="name">Nama</label>
-            <input id="name" v-model="formData.name" type="text" required />
           </div>
 
           <div class="form-group">
@@ -71,7 +70,7 @@ let socket;
 
 watch(
   () => props.student,
-  (newStudent) => {
+  (newStudent) => {z
     errorMessage.value = "";
     if (newStudent) {
       formData.value = { ...newStudent };

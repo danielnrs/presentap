@@ -2,6 +2,16 @@ export default defineNuxtConfig({
   css: ["@/assets/main.css"],
   compatibilityDate: "2024-11-01",
   devtools: { enabled: false },
+  
+  // Favicon configuration
+  app: {
+    head: {
+      title: 'PresenTap - Sistem Presensi Sekolah',
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/presentap.png' }
+      ]
+    }
+  },
   modules: [
     "@prisma/nuxt",
     ["@pinia/nuxt", {
